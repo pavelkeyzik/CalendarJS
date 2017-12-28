@@ -1,30 +1,58 @@
 'use strict';
+
 (function(){
 
+  var monthNameShort = [
+    'Jan', 'Feb', 'Mar',
+    'Apr', 'May', 'June',
+    'July', 'Aug', 'Sept',
+    'Oct', 'Nov', 'Dec'
+  ];
+
+  var monthNameLong = [
+    'January', 'February', 'March',
+    'April', 'May', 'June',
+    'July', 'August', 'September',
+    'October', 'November', 'December'
+  ];
+
   function calendarModule() {
+    var vm = this;
+    var date = new Date();
+    var selectedMonth = date.getMonth();
+    var selectedYear = date.getFullYear();
 
     function getCurrentDay() {
-      var date = new Date();
+      return monthNameLong[selectedMonth] + ' ' + selectedYear;
+    }
 
-      var monthNameShort = [
-        'Jan', 'Feb', 'Mar',
-        'Apr', 'May', 'June',
-        'July', 'Aug', 'Sept',
-        'Oct', 'Nov', 'Dec'
-      ];
+    function monthNext() {
+      if(selectedMonth < 11) {
+        selectedMonth++;
+      } else {
+        selectedMonth = 0;
+        selectedYear++;
+      }
+    }
 
-      var monthNameLong = [
-        'January', 'February', 'March',
-        'April', 'May', 'June',
-        'July', 'August', 'September',
-        'October', 'November', 'December'
-      ];
+    function monthPrev() {
+      if(selectedMonth > 0) {
+        selectedMonth--;
+      } else {
+        selectedMonth = 11;
+        selectedYear--;
+      }
+    }
 
-      return monthNameLong[date.getMonth()] + ' ' + date.getFullYear();
+    function getSelectedMonth() {
+      return selectedMonth;
     }
 
     return {
-      getCurrentDay: getCurrentDay
+      getCurrentDay: getCurrentDay,
+      monthNext: monthNext,
+      monthPrev: monthPrev,
+      getSelectedMonth: getSelectedMonth
     }
   }
 
