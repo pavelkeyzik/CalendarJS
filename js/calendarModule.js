@@ -83,6 +83,7 @@ function Calendar(id, type, lang) {
   }
 
   this_.getTemplate = function() {
+
     var templateStart = `<div class="calendar">
       <div class="calendar__action">
         <div class="calendar__left js-month__prev" onclick="calendar.monthPrev();">
@@ -126,7 +127,9 @@ function Calendar(id, type, lang) {
       prevMonthStart++;
     }
     for(var i = 0; i < 7 - start; i++) {
-      template += `<li class="calendar__numbers--active">${k}</li>`;
+      if(k != currentDay) template += `<li class="calendar__numbers--active">${k}</li>`;
+      else if(k == currentDay && currentYear == selectedYear && currentMonth == selectedMonth) template += `<li class="calendar__numbers--current">${k}</li>`;
+      else template += `<li class="calendar__numbers--active">${k}</li>`;
       k++;
     }
     template += `</div>`;
