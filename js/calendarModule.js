@@ -1,24 +1,46 @@
 'use strict';
 
-var monthNameShort = [
+var monthNameShortEn = [
   'Jan', 'Feb', 'Mar',
   'Apr', 'May', 'June',
   'July', 'Aug', 'Sept',
   'Oct', 'Nov', 'Dec'
 ];
 
-var monthNameLong = [
+var monthNameShortRu = [
+  'Янв', 'Фев', 'Мар',
+  'Апр', 'Май', 'Июн',
+  'Июл', 'Авг', 'Сен',
+  'Окт', 'Ноя', 'Дек'
+];
+
+var monthNameLongEn = [
   'January', 'February', 'March',
   'April', 'May', 'June',
   'July', 'August', 'September',
   'October', 'November', 'December'
 ];
 
-function Calendar(id, type) {
+var monthNameLongRu = [
+  'Январь', 'Февраль', 'Март',
+  'Апрель', 'Май', 'Июнь',
+  'Июль', 'Август', 'Сентябрь',
+  'Октябрь', 'Ноябрь', 'Декабрь'
+];
+
+var daysEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var daysRu = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
+
+function Calendar(id, type, lang) {
   var this_  = this;
 
-  if(type == 'short') this_.monthName = monthNameShort;
-  else if(type == 'long') this_.monthName = monthNameLong;
+  if(lang == 'en') this_.days = daysEn;
+  else if(lang == 'ru') this_.days = daysRu;
+
+  if(type == 'short' && lang == 'en') this_.monthName = monthNameShortEn;
+  else if(type == 'short' && lang == 'ru') this_.monthName = monthNameShortRu;
+  else if(type == 'long' && lang == 'en') this_.monthName = monthNameLongEn;
+  else if(type == 'long' && lang == 'ru') this_.monthName = monthNameLongRu;
 
   var date = new Date();
   var currentDay = date.getDate();
@@ -74,16 +96,13 @@ function Calendar(id, type) {
         </div>
       </div>
       <div class="calendar__content">
-        <ul class="calendar__days">
-          <li>Sun</li>
-          <li>Mon</li>
-          <li>Tue</li>
-          <li>Wed</li>
-          <li>Thu</li>
-          <li>Fri</li>
-          <li>Sat</li>
-        </ul>
-        <div class="calendar__numbers">`;
+        <ul class="calendar__days">`;
+    for(var i = 0; i < 7; i++) {
+      templateStart += `<li>${this_.days[i]}</li>`
+    }
+
+    templateStart += `</ul>
+      <div class="calendar__numbers">`;
 
     var templateEnd = `
         </div>

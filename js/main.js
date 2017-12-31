@@ -1,3 +1,3 @@
 'use strict';
 
-var calendar = new Calendar('firstCalendar', 'long');
+var calendar = new Calendar('firstCalendar', 'long', 'ru');
