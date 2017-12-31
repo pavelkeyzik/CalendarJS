@@ -24,6 +24,7 @@ function Calendar(id, type) {
   var currentDay = date.getDate();
   var currentYear = date.getFullYear();
   var currentMonth = date.getMonth();
+
   var selectedMonth = date.getMonth();
   var selectedYear = date.getFullYear();
 
@@ -65,7 +66,7 @@ function Calendar(id, type) {
         <div class="calendar__left js-month__prev" onclick="calendar.monthPrev();">
           <i class="material-icons">chevron_left</i>
         </div>
-        <div class="calendar__current js-calendar__current">
+        <div class="calendar__current js-calendar__current" onclick="calendar.refreshDate();">
           ${this.getCurrentDay()}
         </div>
         <div class="calendar__right js-month__next" onclick="calendar.monthNext();">
@@ -134,6 +135,12 @@ function Calendar(id, type) {
     template += templateEnd;
 
     return template;
+  }
+
+  this_.refreshDate = function() {
+    selectedMonth = currentMonth;
+    selectedYear = currentYear;
+    this_.updateTemplate();
   }
 
   this_.updateTemplate();

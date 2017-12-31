@@ -45,6 +45,7 @@ body {
 .calendar__left:hover,
 .calendar__right:hover {
   color: #888;
+  background: #fafafa;
 }
 
 .calendar__current {
@@ -54,6 +55,13 @@ body {
   height: 100%;
   padding: 0 25px;
   color: #333;
+  cursor: pointer;
+  width: 80%;
+  transition: .2s;
+}
+
+.calendar__current:hover {
+  background: #fafafa;
 }
 
 .calendar__content {
