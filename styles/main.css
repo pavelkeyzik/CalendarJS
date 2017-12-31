@@ -12,17 +12,13 @@ body {
   background: #eee;
 }
 
-main {
-  background: #fff;
-  box-shadow: 0 2px 14px #ddd;
-  /*padding: 15px 30px;*/
-  border-radius: 3px;
-}
-
 .calendar {
   display: flex;
   flex-direction: column;
   min-width: 300px;
+  box-shadow: 0 2px 14px #ddd;
+  border-radius: 3px;
+  background: #fff;
 }
 
 .calendar__action {
