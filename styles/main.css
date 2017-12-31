@@ -10,12 +10,14 @@ body {
   justify-content: center;
   height: 100vh;
   background: #eee;
+  font-family: Lato;
 }
 
 .calendar {
   display: flex;
   flex-direction: column;
-  min-width: 300px;
+  min-width: 360px;
+  padding-bottom: 20px;
   box-shadow: 0 2px 14px #ddd;
   border-radius: 3px;
   background: #fff;
@@ -73,6 +75,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-weight: bold;
+  color: #666;
 }
 
 li {
@@ -88,17 +92,24 @@ li {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 30px;
 }
 
 .calendar__numbers .row li {
   display: flex;
   align-items: center;
   justify-content: center;
-  /*border: 1px solid red;*/
-  width: 100%;
+  width: 36px;
+  height: 36px;
+  margin: auto;
+  font-size: 10pt;
 }
 
 .calendar__numbers--inactive {
   opacity: 0.5;
+}
+
+.calendar__numbers--current {
+  background: #1e90ff;
+  color: #fff;
+  border-radius: 50%;
 }

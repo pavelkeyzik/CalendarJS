@@ -126,7 +126,7 @@ function Calendar(id, type) {
             <li class="calendar__numbers--active">30</li>
           </div>
           <div class="row">
-            <li class="calendar__numbers--active">31</li>
+            <li class="calendar__numbers--current">31</li>
             <li class="calendar__numbers--inactive">1</li>
             <li class="calendar__numbers--inactive">2</li>
             <li class="calendar__numbers--inactive">3</li>

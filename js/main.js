@@ -1,3 +1,3 @@
 'use strict';
 
-var calendar = new Calendar('firstCalendar', 'short');
+var calendar = new Calendar('firstCalendar', 'long');
