@@ -43,37 +43,33 @@ function Calendar(id, type, lang) {
   else if(type == 'long' && lang == 'ru') this_.monthName = monthNameLongRu;
 
   var date = new Date();
-  var currentDay = date.getDate();
-  var currentYear = date.getFullYear();
-  var currentMonth = date.getMonth();
+  this_.currentDay = date.getDate();
+  this_.currentYear = date.getFullYear();
+  this_.currentMonth = date.getMonth();
 
-  var selectedMonth = date.getMonth();
-  var selectedYear = date.getFullYear();
+  this_.selectedMonth = date.getMonth();
+  this_.selectedYear = date.getFullYear();
 
   this.getCurrentDay = function() {
-    return this_.monthName[selectedMonth] + ' ' + selectedYear;
+    return this_.monthName[this_.selectedMonth] + ' ' + this_.selectedYear;
   }
 
-  this.calendarPromise = new Promise(function(resolve, reject) {
-    resolve(this_.getCurrentDay());
-  });
-
   this.monthPrev = function() {
-    if(selectedMonth > 0) {
-      selectedMonth--;
+    if(this_.selectedMonth > 0) {
+      this_.selectedMonth--;
     } else {
-      selectedMonth = 11;
-      selectedYear--;
+      this_.selectedMonth = 11;
+      this_.selectedYear--;
     }
     this_.updateTemplate();
   }
 
   this.monthNext = function() {
-    if(selectedMonth < 11) {
-      selectedMonth++;
+    if(this_.selectedMonth < 11) {
+      this_.selectedMonth++;
     } else {
-      selectedMonth = 0;
-      selectedYear++;
+      this_.selectedMonth = 0;
+      this_.selectedYear++;
     }
     this_.updateTemplate();
   }
@@ -82,22 +78,33 @@ function Calendar(id, type, lang) {
     document.getElementById(id).innerHTML = this_.getTemplate();
   }
 
-  this_.getTemplate = function() {
+  document.getElementById(id).addEventListener('click', function(event) {
+    var calendarId = event.target.parentNode.parentNode.id;
+    if(id == calendarId) {
+      if(event.target.className.indexOf('js-month__prev') > 0) {
+        this_.monthPrev();
+      } else if (event.target.className.indexOf('js-month__next') > 0) {
+        this_.monthNext();
+      } else if (event.target.className.indexOf('js-calendar__current') > 0) {
+        this_.refreshDate();
+      }
+    }
+  });
 
-    var templateStart = `<div class="calendar">
+  this_.getTemplate = function() {
+    var templateStart = `<div class="calendar" id="${id}">
       <div class="calendar__action">
-        <div class="calendar__left js-month__prev" onclick="calendar.monthPrev();">
-          <i class="material-icons">chevron_left</i>
-        </div>
-        <div class="calendar__current js-calendar__current" onclick="calendar.refreshDate();">
+        <i class="material-icons calendar__left js-month__prev">chevron_left</i>
+        <div class="calendar__current js-calendar__current">
           ${this.getCurrentDay()}
         </div>
-        <div class="calendar__right js-month__next" onclick="calendar.monthNext();">
-          <i class="material-icons">chevron_right</i>
-        </div>
+        <i class="material-icons calendar__right js-month__next">
+          chevron_right
+        </i>
       </div>
       <div class="calendar__content">
         <ul class="calendar__days">`;
+
     for(var i = 0; i < 7; i++) {
       templateStart += `<li>${this_.days[i]}</li>`
     }
@@ -115,11 +122,11 @@ function Calendar(id, type, lang) {
 
     template += `<div class="row">`;
 
-    var countOfDaysInMounth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+    var countOfDaysInMounth = new Date(this_.selectedYear, this_.selectedMonth + 1, 0).getDate();
 
-    var start = new Date(selectedYear, selectedMonth, 1).getDay();
+    var start = new Date(this_.selectedYear, this_.selectedMonth, 1).getDay();
 
-    var prevMonthStart = new Date(selectedYear, selectedMonth, 0).getDate();
+    var prevMonthStart = new Date(this_.selectedYear, this_.selectedMonth, 0).getDate();
     prevMonthStart -= start - 1;
 
     for(var i = 0; i < start; i++) {
@@ -127,21 +134,21 @@ function Calendar(id, type, lang) {
       prevMonthStart++;
     }
     for(var i = 0; i < 7 - start; i++) {
-      if(k != currentDay) template += `<li class="calendar__numbers--active">${k}</li>`;
-      else if(k == currentDay && currentYear == selectedYear && currentMonth == selectedMonth) template += `<li class="calendar__numbers--current">${k}</li>`;
+      if(k != this_.currentDay) template += `<li class="calendar__numbers--active">${k}</li>`;
+      else if(k == this_.currentDay && this_.currentYear == this_.selectedYear && this_.currentMonth == this_.selectedMonth) template += `<li class="calendar__numbers--current">${k}</li>`;
       else template += `<li class="calendar__numbers--active">${k}</li>`;
       k++;
     }
     template += `</div>`;
 
     var l = 1;
-    var end = new Date(selectedYear, selectedMonth + 1, 0).getDay();
+    var end = new Date(this_.selectedYear, this_.selectedMonth + 1, 0).getDay();
     for(var i = 0; i < Math.floor((countOfDaysInMounth + start) / 7); i++) {
       template += `<div class="row">`;
       for(var j = 0; j < 7; j++) {
         if(k <= countOfDaysInMounth) {
-          if(k != currentDay) template += `<li class="calendar__numbers--active">${k}</li>`;
-          else if(k == currentDay && currentYear == selectedYear && currentMonth == selectedMonth) template += `<li class="calendar__numbers--current">${k}</li>`;
+          if(k != this_.currentDay) template += `<li class="calendar__numbers--active">${k}</li>`;
+          else if(k == this_.currentDay && this_.currentYear == this_.selectedYear && this_.currentMonth == this_.selectedMonth) template += `<li class="calendar__numbers--current">${k}</li>`;
           else template += `<li class="calendar__numbers--active">${k}</li>`;
           k++;
         } else {
@@ -160,8 +167,8 @@ function Calendar(id, type, lang) {
   }
 
   this_.refreshDate = function() {
-    selectedMonth = currentMonth;
-    selectedYear = currentYear;
+    this_.selectedMonth = this_.currentMonth;
+    this_.selectedYear = this_.currentYear;
     this_.updateTemplate();
   }
 
