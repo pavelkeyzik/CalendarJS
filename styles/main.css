@@ -33,7 +33,7 @@ body {
 
 .calendar__left,
 .calendar__right {
-  display: flex;
+  display: flex !important;
   width: 45px;
   height: 45px;
   align-items: center;
