@@ -33,11 +33,7 @@
   var daysEn = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   var daysRu = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
 
-<<<<<<< HEAD
   var object = document.getElementsByClassName('calendar-widjet');
-=======
-  var object = document.getElementsByClassName('calendar-vidjet');
->>>>>>> 8b7c88a1f87769e32d059d8e8160582adc1d85bc
   var i = 0;
 
   for (let calendar of object) {
