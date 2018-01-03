@@ -196,4 +196,35 @@
     this_.updateTemplate();
   }
 
+  var contextMenu = document.getElementById('contextMenu');
+  contextMenu.classList.add('context-menu--closed');
+
+  window.addEventListener('contextmenu', function(event) {
+    event.preventDefault();
+
+    console.log(event);
+
+    if(contextMenu.classList.contains('context-menu--opened')) {
+      contextMenu.classList.replace('context-menu--opened', 'context-menu--closed');
+      contextMenu.style.right = 'unset';
+      contextMenu.style.left = 'unset';
+      contextMenu.style.top = 'unset';
+      contextMenu.style.bottom = 'unset';
+    } else {
+
+      if(event.clientX + contextMenu.clientWidth > window.innerWidth) {
+        contextMenu.style.right = (window.innerWidth - event.clientX) + 'px';
+      } else {
+        contextMenu.style.left = event.clientX + 'px';
+      }
+
+      if(event.clientY + contextMenu.clientHeight > window.innerHeight) {
+        contextMenu.style.bottom = (window.innerHeight - event.clientY) + 'px';
+      } else {
+        contextMenu.style.top = event.clientY + 'px';
+      }
+      contextMenu.classList.replace('context-menu--closed', 'context-menu--opened');
+    }
+  });
+
 })();

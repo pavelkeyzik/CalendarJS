@@ -121,3 +121,51 @@ li {
   color: #fff;
   border-radius: 50%;
 }
+
+.context-menu {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  position: absolute;
+  z-index: 99999;
+  opacity: 1;
+  padding-bottom: 20px;
+  box-shadow: 2px 5px 24px #ddd;
+  border-radius: 3px;
+}
+
+.context-menu--opened {
+  opacity: 1;
+}
+
+.context-menu--closed {
+  opacity: 0;
+}
+
+.context-menu li {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px 30px 10px 15px;
+  cursor: pointer;
+  color: #888;
+  white-space: nowrap;
+}
+
+.context-menu span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  font-weight: bold;
+  font-size: 11pt;
+  height: 55px;
+}
+
+.context-menu li i {
+  margin-right: 10px;
+}
+
+.context-menu li:hover {
+  color: #444;
+  background: #fafafa;
+}
